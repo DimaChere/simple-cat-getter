@@ -1,19 +1,19 @@
 "use client";
+import defaultCatImage from "@/shared/assets/images/cat-image.png";
 import { FC } from "react";
 import { getClasses } from "./styles/get-classes";
 
-type SimpleImage = {
+type CatImageProps = {
     imageUrl: string;
-    defaultImageUrl?: string;
 };
 
-export const SimpleImage: FC<SimpleImage> = ({ imageUrl, defaultImageUrl }) => {
+export const CatImage: FC<CatImageProps> = ({ imageUrl }) => {
     const { cnRoot, cnImage } = getClasses();
 
     return (
         <div className={cnRoot}>
             <img
-                src={imageUrl || defaultImageUrl}
+                src={imageUrl || defaultCatImage.src}
                 alt="cat"
                 className={cnImage}
             />
