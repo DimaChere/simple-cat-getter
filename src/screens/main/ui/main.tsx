@@ -8,7 +8,25 @@ import { getClasses } from "./styles/get-classes";
 export const MainScreen = () => {
     const { cnRoot, cnForm } = getClasses();
 
-    const { isPending, isSubmitEnabled, imageUrl, onSubmit } = useFetchForm();
+    const {
+        isPending,
+        isSubmitEnabled,
+        imageUrl,
+        onSubmit,
+        autoRefetch,
+        setAutoRefetch,
+        setIsSubmitEnabled,
+    } = useFetchForm();
+
+    const handleEnabledChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsSubmitEnabled(e.target.checked);
+    };
+
+    const handleAutoRefetchChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setAutoRefetch(e.target.checked);
+    };
 
     const isButtonDisabled = isPending || !isSubmitEnabled;
     const buttonText = isPending ? "Loading..." : "Get cat";
@@ -18,11 +36,13 @@ export const MainScreen = () => {
             <form onSubmit={onSubmit} className={cnForm}>
                 <CheckBoxInput
                     labelText="Enabled"
-                    // {("enabled")}
+                    defaultChecked={isSubmitEnabled}
+                    onChange={handleEnabledChange}
                 />
                 <CheckBoxInput
                     labelText="Auto-refresh every 5 seconds"
-                    // {("autoRefetch")}
+                    defaultChecked={autoRefetch}
+                    onChange={handleAutoRefetchChange}
                 />
 
                 <ButtonPrimary type="submit" disabled={isButtonDisabled}>
